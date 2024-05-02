@@ -1,7 +1,6 @@
 #Aquí va el código de los métodos para la creación de las figuras
 import matplotlib.pyplot as plt
 
-e = 0
 def cuadrado(ax, punto, longitud):
     # Obtener coordenadas x, y del punto donde partirá el cuadrado
     x, y = punto
