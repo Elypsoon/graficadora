@@ -86,7 +86,7 @@ puntoInput_Rectangulo.pack(side='left', padx=10, pady=10)
 frameAncho_Rectangulo = tk.Frame(root)
 frameAncho_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
 longLabel_Rectangulo = tk.Label(frameAncho_Rectangulo, text="Ancho:", font=labelFont)
-longLabel_Rectangulo.pack(side='left', padx=60, pady=10)
+longLabel_Rectangulo.pack(side='left', padx=72, pady=10)
 longInput_Rectangulo = tk.Entry(frameAncho_Rectangulo, width=30, font=inputFont)
 longInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
@@ -94,7 +94,7 @@ longInput_Rectangulo.pack(side='left', padx=10, pady=10)
 frameLargo_Rectangulo = tk.Frame(root)
 frameLargo_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
 largoLabel_Rectangulo = tk.Label(frameLargo_Rectangulo, text="Largo:", font=labelFont)
-largoLabel_Rectangulo.pack(side='left', padx=60, pady=10)
+largoLabel_Rectangulo.pack(side='left', padx=76, pady=10)
 largoInput_Rectangulo = tk.Entry(frameLargo_Rectangulo, width=30, font=inputFont)
 largoInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
@@ -109,8 +109,8 @@ puntoInput_Triangulo.pack(side='left', padx=10, pady=10)
 #Inputs para la longitud del triángulo
 frameLong_Triangulo = tk.Frame(root)
 frameLargo_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
-longLabel_Triangulo = tk.Label(frameLong_Triangulo, text="Longitud por lado:", font=labelFont)
-longLabel_Triangulo.pack(side='left', padx=60, pady=10)
+longLabel_Triangulo = tk.Label(frameLong_Triangulo, text="Lado:", font=labelFont)
+longLabel_Triangulo.pack(side='left', padx=82, pady=10)
 longInput_Triangulo = tk.Entry(frameLong_Triangulo, width=30, font=inputFont)
 longInput_Triangulo.pack(side='left', padx=10, pady=10)
 
@@ -126,7 +126,7 @@ centroInput_Circulo.pack(side='left', padx=10, pady=10)
 frameRadio_Circulo = tk.Frame(root)
 frameRadio_Circulo.pack(pady=10)  # Espacio vertical para separar los Frames
 radioLabel_Circulo = tk.Label(frameRadio_Circulo, text="Radio:", font=labelFont)
-radioLabel_Circulo.pack(side='left', padx=60, pady=10)
+radioLabel_Circulo.pack(side='left', padx=18, pady=10)
 radioInput_Circulo = tk.Entry(frameRadio_Circulo, width=30, font=inputFont)
 radioInput_Circulo.pack(side='left', padx=10, pady=10)
 
