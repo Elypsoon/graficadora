@@ -13,14 +13,14 @@ def cerrar():
 # Crea una ventana
 root = tk.Tk()
 root.title("Graficadora")
-root.wm_minsize(width=1200, height=800)
+root.wm_minsize(width=1200, height=1200)
 
-# Crea una figura vacía inicial
+# Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
 fig, ax = plt.subplots()
 
 # Configura los límites para los ejes
-ax.set_xlim(0, 20)  # Límites para el eje x
-ax.set_ylim(0, 20)  # Límites para el eje y
+ax.set_xlim(0, 20)  # Tamaño máximo para el eje x
+ax.set_ylim(0, 20)  # Tamño máximo para el eje y
 
 # Añadir etiquetas a los ejes
 ax.set_xlabel("Eje X")
@@ -33,6 +33,9 @@ ax.grid(True)
 canvas = FigureCanvasTkAgg(fig, master=root)
 
 figuras.cuadrado(ax, (2, 2), 5)
+figuras.circulo(ax, (10, 10), 3)
+figuras.triangulo(ax, (3, 10), 5)
+figuras.rectangulo(ax, (10, 3), 4, 6)
 
 canvas.draw()
 
