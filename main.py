@@ -1,5 +1,6 @@
 #Aquí se encuentra el menú principal de la aplicación
 
+import figuras
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #Permite integrar matplotlib con tkinter
 import tkinter as tk
@@ -30,6 +31,9 @@ ax.grid(True)
 
 # Crear lienzo para Matplotlib
 canvas = FigureCanvasTkAgg(fig, master=root)
+
+figuras.cuadrado(ax, (2, 2), 5)
+
 canvas.draw()
 
 # Inserta el lienzo en la ventana
@@ -37,5 +41,4 @@ canvas.get_tk_widget().pack(expand=True, fill=tk.BOTH)
 
 # Ejecutar el bucle de eventos de Tkinter
 root.protocol("WM_DELETE_WINDOW", cerrar)
-
 tk.mainloop()
