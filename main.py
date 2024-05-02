@@ -14,7 +14,7 @@ def cerrar():
 # Crea una ventana
 root = tk.Tk()
 root.title("Graficadora")
-root.wm_minsize(width=1000, height=1000)
+root.wm_minsize(width=900, height=900)
 #root.wm_maxsize(width=1000, height=1000)
 
 labelFont = tkFont.Font(family="Helvetica", size=20, weight="bold")
@@ -22,6 +22,8 @@ inputFont = tkFont.Font(family="Helvetica", size=20)
 
 # Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
 fig, ax = plt.subplots()
+
+ax.set_aspect('equal', adjustable='datalim')  # Mantener la misma proporción en los ejes
 
 # Configura los límites para los ejes
 ax.set_xlim(-20, 20)  # Tamaño máximo para el eje x
@@ -39,10 +41,10 @@ ax.grid(True)
 # Crear lienzo para Matplotlib
 canvas = FigureCanvasTkAgg(fig, master=root)
 
-figuras.cuadrado(ax, (2, 2), 5)
-figuras.circulo(ax, (10, 10), 3)
-figuras.triangulo(ax, (3, 10), 5)
-figuras.rectangulo(ax, (10, 3), 4, 6)
+# figuras.cuadrado(ax, (2, 2), 5)
+# figuras.circulo(ax, (10, 10), 3)
+# figuras.triangulo(ax, (3, 10), 5)
+# figuras.rectangulo(ax, (10, 3), 4, 6)
 
 canvas.draw()
 
@@ -56,7 +58,7 @@ desplegable = tk.OptionMenu(root, select, *opciones)
 menu = root.nametowidget(desplegable.menuname)
 menu.config(font=inputFont)  # Aplicar la fuente al menú desplegable
 desplegable.config(font=labelFont)  # Aplicar la fuente al select
-desplegable.pack(anchor='w', padx=10, pady=10)
+desplegable.pack(anchor='w', pady=10)
 
 #Inputs para el punto inicial del cuadrado
 framePunto_Cuadrado = tk.Frame(root)
@@ -141,11 +143,11 @@ def mostrar_campos(*args):
     frameLong_Triangulo.pack_forget()
     frameCentro_Circulo.pack_forget()
     frameRadio_Circulo.pack_forget()
+    frameBotones.pack_forget()
     
     if select.get() == "Cuadrado":
         framePunto_Cuadrado.pack()
         frameAncho_Cuadrado.pack()
-
     elif select.get() == "Rectángulo":
         framePunto_Rectangulo.pack()
         frameAncho_Rectangulo.pack()
@@ -158,8 +160,100 @@ def mostrar_campos(*args):
     elif select.get() == "Círculo":
         frameCentro_Circulo.pack()
         frameRadio_Circulo.pack()
+    
+    frameBotones.pack()
+
+#Función para limpiar el lienzo y los campos de entrada  
+def limpiar():
+    puntoInput_Cuadrado.delete(0, 'end')
+    longInput_Cuadrado.delete(0, 'end')
+    puntoInput_Rectangulo.delete(0, 'end')
+    longInput_Rectangulo.delete(0, 'end')
+    largoInput_Rectangulo.delete(0, 'end')
+    puntoInput_Triangulo.delete(0, 'end')
+    longInput_Triangulo.delete(0, 'end')
+    centroInput_Circulo.delete(0, 'end')
+    radioInput_Circulo.delete(0, 'end')
+    
+    ax.clear()
+    ax.set_xlim(-20, 20)
+    ax.set_ylim(-20, 20)
+    ax.set_xlabel("Eje X")
+    ax.set_ylabel("Eje Y")
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.grid(True)
+    canvas.draw()
+
+#Solo limpia la gráfica, no los campos de entrada
+def limpiarCanvas():
+    ax.clear()
+    ax.set_xlim(-20, 20)
+    ax.set_ylim(-20, 20)
+    ax.set_xlabel("Eje X")
+    ax.set_ylabel("Eje Y")
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.grid(True)
+    canvas.draw()
+
+#Grafica todas las figuras ingresadas
+def graficarTodo():
+    limpiarCanvas() #Esto evita multiples figuras del mismo tipo
+    if puntoInput_Cuadrado.get() != "": #Esta condición debe cambiarse por la del analizador
+        punto = eval(puntoInput_Cuadrado.get()) #Eval permite convertir un string a una tupla
+        longitud = float(longInput_Cuadrado.get())
+        figuras.cuadrado(ax, punto, longitud)
+    if puntoInput_Rectangulo.get() != "":
+        punto = eval(puntoInput_Rectangulo.get())
+        ancho = float(longInput_Rectangulo.get())
+        largo = float(largoInput_Rectangulo.get())
+        figuras.rectangulo(ax, punto, ancho, largo)
+    if puntoInput_Triangulo.get() != "":
+        punto = eval(puntoInput_Triangulo.get())
+        longitud = float(longInput_Triangulo.get())
+        figuras.triangulo(ax, punto, longitud)
+    if centroInput_Circulo.get() != "":
+        centro = eval(centroInput_Circulo.get())
+        radio = float(radioInput_Circulo.get())
+        figuras.circulo(ax, centro, radio)
+        
+    canvas.draw()
+    
+#Función para eliminar la figura seleccionada y sus campos de entrada
+def eliminar():
+    if select.get() == "Cuadrado":
+        puntoInput_Cuadrado.delete(0, 'end')
+        longInput_Cuadrado.delete(0, 'end')
+        graficarTodo() #Así se conservan las demás figuras
+        
+    elif select.get() == "Rectángulo":
+        puntoInput_Rectangulo.delete(0, 'end')
+        longInput_Rectangulo.delete(0, 'end')
+        largoInput_Rectangulo.delete(0, 'end')
+        graficarTodo()
+        
+    elif select.get() == "Triángulo":
+        puntoInput_Triangulo.delete(0, 'end')
+        longInput_Triangulo.delete(0, 'end')
+        graficarTodo()
+        
+    elif select.get() == "Círculo":
+        centroInput_Circulo.delete(0, 'end')
+        radioInput_Circulo.delete(0, 'end')
+        graficarTodo()
 
 select.trace_add("write", mostrar_campos)
+
+#Sección para los botones
+frameBotones = tk.Frame(root)
+frameBotones.pack(pady=10)  # Espacio vertical para separar los Frames
+limpiar_button = tk.Button(frameBotones, text="Eliminar todo", command=limpiar, font=labelFont)
+limpiar_button.pack(side='left', padx=50, pady=10)
+eliminar_button = tk.Button(frameBotones, text="Eliminar figura", command=eliminar, font=labelFont)
+eliminar_button.pack(side='left', padx=50, pady=10)
+graficar_button = tk.Button(frameBotones, text="Graficar todo", command=graficarTodo, font=labelFont)
+graficar_button.pack(side='left', padx=50, pady=10)
 
 mostrar_campos() #Se llama en cada inicio de la aplicación para evitar que no se ejecuten los cambios
 root.protocol("WM_DELETE_WINDOW", cerrar) #No se usan los paréntesis para que no se ejecute la función al iniciar la aplicación
