@@ -14,24 +14,20 @@ def cerrar():
 # Crea una ventana
 root = tk.Tk()
 root.title("Graficadora")
-root.wm_minsize(width=900, height=900)
+#root.wm_minsize(width=900, height=900)
 #root.wm_maxsize(width=1000, height=1000)
 
-labelFont = tkFont.Font(family="Helvetica", size=20, weight="bold")
-inputFont = tkFont.Font(family="Helvetica", size=20)
+labelFont = tkFont.Font(family="Helvetica", size=16, weight="bold")
+inputFont = tkFont.Font(family="Helvetica", size=16)
 
 # Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
-fig, ax = plt.subplots()
-
-ax.set_aspect('equal', adjustable='datalim')  # Mantener la misma proporción en los ejes
-
-# Configura los límites para los ejes
-ax.set_xlim(-20, 20)  # Tamaño máximo para el eje x
-ax.set_ylim(-20, 20)  # Tamño máximo para el eje y
+fig, ax = plt.subplots(figsize=(8, 8))
 
 # Añadir etiquetas a los ejes
 ax.set_xlabel("Eje X")
 ax.set_ylabel("Eje Y")
+ax.set_xlim(-20, 20)  # Mínimo tamaño para el eje x
+ax.set_ylim(-20, 20)  # Mínimo tamaño para el eje y
 ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)  # Marca el eje horizontal
 ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)  # Marca el eje vertical
 
@@ -49,7 +45,7 @@ canvas = FigureCanvasTkAgg(fig, master=root)
 canvas.draw()
 
 # Inserta el lienzo en la ventana
-canvas.get_tk_widget().pack(expand=True, fill=tk.BOTH)
+canvas.get_tk_widget().pack()
 
 #Para el desplegable
 select = tk.StringVar(value="Cuadrado")
@@ -176,8 +172,6 @@ def limpiar():
     radioInput_Circulo.delete(0, 'end')
     
     ax.clear()
-    ax.set_xlim(-20, 20)
-    ax.set_ylim(-20, 20)
     ax.set_xlabel("Eje X")
     ax.set_ylabel("Eje Y")
     ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
@@ -188,8 +182,6 @@ def limpiar():
 #Solo limpia la gráfica, no los campos de entrada
 def limpiarCanvas():
     ax.clear()
-    ax.set_xlim(-20, 20)
-    ax.set_ylim(-20, 20)
     ax.set_xlabel("Eje X")
     ax.set_ylabel("Eje Y")
     ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
@@ -217,7 +209,7 @@ def graficarTodo():
         centro = eval(centroInput_Circulo.get())
         radio = float(radioInput_Circulo.get())
         figuras.circulo(ax, centro, radio)
-        
+   
     canvas.draw()
     
 #Función para eliminar la figura seleccionada y sus campos de entrada
