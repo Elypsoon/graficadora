@@ -10,7 +10,7 @@ import tkinter.font as tkFont #Para cambiar la fuente de los elementos de la int
 def cerrar():
     root.quit()
     root.destroy()
-
+    
 # Crea una ventana
 root = tk.Tk()
 root.title("Graficadora")
@@ -21,7 +21,7 @@ labelFont = tkFont.Font(family="Helvetica", size=16, weight="bold")
 inputFont = tkFont.Font(family="Helvetica", size=16)
 
 # Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
-fig, ax = plt.subplots(figsize=(8, 8))
+fig, ax = plt.subplots(figsize=(6, 6))
 
 # Añadir etiquetas a los ejes
 ax.set_xlabel("Eje X")
@@ -54,7 +54,7 @@ desplegable = tk.OptionMenu(root, select, *opciones)
 menu = root.nametowidget(desplegable.menuname)
 menu.config(font=inputFont)  # Aplicar la fuente al menú desplegable
 desplegable.config(font=labelFont)  # Aplicar la fuente al select
-desplegable.pack(anchor='w', pady=10)
+desplegable.pack(anchor='n', pady=10)
 
 #Inputs para el punto inicial del cuadrado
 framePunto_Cuadrado = tk.Frame(root)
@@ -144,6 +144,7 @@ def mostrar_campos(*args):
     if select.get() == "Cuadrado":
         framePunto_Cuadrado.pack()
         frameAncho_Cuadrado.pack()
+        
     elif select.get() == "Rectángulo":
         framePunto_Rectangulo.pack()
         frameAncho_Rectangulo.pack()
@@ -159,6 +160,15 @@ def mostrar_campos(*args):
     
     frameBotones.pack()
 
+#Solo limpia la gráfica, no los campos de entrada
+def limpiarCanvas():
+    ax.clear()
+    ax.set_xlabel("Eje X")
+    ax.set_ylabel("Eje Y")
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
+    ax.grid(True)
+
 #Función para limpiar el lienzo y los campos de entrada  
 def limpiar():
     puntoInput_Cuadrado.delete(0, 'end')
@@ -171,27 +181,13 @@ def limpiar():
     centroInput_Circulo.delete(0, 'end')
     radioInput_Circulo.delete(0, 'end')
     
-    ax.clear()
-    ax.set_xlabel("Eje X")
-    ax.set_ylabel("Eje Y")
-    ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
-    ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
-    ax.grid(True)
-    canvas.draw()
-
-#Solo limpia la gráfica, no los campos de entrada
-def limpiarCanvas():
-    ax.clear()
-    ax.set_xlabel("Eje X")
-    ax.set_ylabel("Eje Y")
-    ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
-    ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
-    ax.grid(True)
+    limpiarCanvas()
     canvas.draw()
 
 #Grafica todas las figuras ingresadas
 def graficarTodo():
     limpiarCanvas() #Esto evita multiples figuras del mismo tipo
+    canvas.draw()
     if puntoInput_Cuadrado.get() != "": #Esta condición debe cambiarse por la del analizador
         punto = eval(puntoInput_Cuadrado.get()) #Eval permite convertir un string a una tupla
         longitud = float(longInput_Cuadrado.get())
@@ -209,9 +205,9 @@ def graficarTodo():
         centro = eval(centroInput_Circulo.get())
         radio = float(radioInput_Circulo.get())
         figuras.circulo(ax, centro, radio)
-   
-    canvas.draw()
-    
+        
+    canvas.draw()        
+
 #Función para eliminar la figura seleccionada y sus campos de entrada
 def eliminar():
     if select.get() == "Cuadrado":
@@ -234,7 +230,7 @@ def eliminar():
         centroInput_Circulo.delete(0, 'end')
         radioInput_Circulo.delete(0, 'end')
         graficarTodo()
-
+        
 select.trace_add("write", mostrar_campos)
 
 #Sección para los botones
@@ -244,7 +240,7 @@ limpiar_button = tk.Button(frameBotones, text="Eliminar todo", command=limpiar, 
 limpiar_button.pack(side='left', padx=50, pady=10)
 eliminar_button = tk.Button(frameBotones, text="Eliminar figura", command=eliminar, font=labelFont)
 eliminar_button.pack(side='left', padx=50, pady=10)
-graficar_button = tk.Button(frameBotones, text="Graficar todo", command=graficarTodo, font=labelFont)
+graficar_button = tk.Button(frameBotones, text="Graficar", command=graficarTodo, font=labelFont)
 graficar_button.pack(side='left', padx=50, pady=10)
 
 mostrar_campos() #Se llama en cada inicio de la aplicación para evitar que no se ejecuten los cambios

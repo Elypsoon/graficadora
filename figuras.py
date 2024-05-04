@@ -1,6 +1,8 @@
 #Aquí va el código de los métodos para la creación de las figuras
 import matplotlib.pyplot as plt
 
+estado = {'cuadrado': None, 'circulo': None, 'triangulo': None, 'rectangulo': None}
+
 def cuadrado(ax, punto, longitud):
     # Obtener coordenadas x, y del punto donde partirá el cuadrado
     x, y = punto
@@ -10,7 +12,7 @@ def cuadrado(ax, punto, longitud):
     ejeY = [y, y, y + longitud, y + longitud, y]
 
     # Añaadir el cuadrado al eje
-    ax.plot(ejeX, ejeY, 'b-', linewidth=2)
+    estado['cuadrado'] = ax.plot(ejeX, ejeY, 'b-', linewidth=2)
     
 def circulo(ax, punto, radio):
     # Obtener coordenadas x, y del punto central
@@ -20,7 +22,7 @@ def circulo(ax, punto, radio):
     circulo = plt.Circle((x, y), radio, color='r', fill=False, linewidth=2)
 
     # Añadir el círculo al eje
-    ax.add_artist(circulo)
+    estado['circulo'] = ax.add_artist(circulo)
 
 def triangulo(ax, punto, longitud):
     # Obtener coordenadas x, y del punto donde partirá el triángulo
@@ -31,7 +33,7 @@ def triangulo(ax, punto, longitud):
     ejeY = [y, y, y + longitud, y]
 
     # Añaadir el triángulo al eje
-    ax.plot(ejeX, ejeY, 'g-', linewidth=2)
+    estado['triangulo'] = ax.plot(ejeX, ejeY, 'g-', linewidth=2)
     
 def rectangulo(ax, punto, ancho, alto):
     # Obtener coordenadas x, y del punto donde partirá el rectángulo
@@ -42,4 +44,4 @@ def rectangulo(ax, punto, ancho, alto):
     ejeY = [y, y, y + alto, y + alto, y]
 
     # añaadir el rectángulo al eje
-    ax.plot(ejeX, ejeY, 'y-', linewidth=2)
+    estado['rectangulo'] = ax.plot(ejeX, ejeY, 'y-', linewidth=2)
