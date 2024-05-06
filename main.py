@@ -1,6 +1,7 @@
 #Aquí se encuentra el menú principal de la aplicación
 
 import figuras
+import analizador as parser
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #Permite integrar matplotlib con tkinter
 import tkinter as tk
@@ -19,6 +20,7 @@ root.title("Graficadora")
 
 labelFont = tkFont.Font(family="Helvetica", size=16, weight="bold")
 inputFont = tkFont.Font(family="Helvetica", size=16)
+errorFont = tkFont.Font(family="Helvetica", size=12)
 
 # Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
 fig, ax = plt.subplots(figsize=(6, 6))
@@ -140,7 +142,8 @@ def mostrar_campos(*args):
     frameCentro_Circulo.pack_forget()
     frameRadio_Circulo.pack_forget()
     frameBotones.pack_forget()
-    
+    frameErrores.pack_forget()
+
     if select.get() == "Cuadrado":
         framePunto_Cuadrado.pack()
         frameAncho_Cuadrado.pack()
@@ -158,6 +161,7 @@ def mostrar_campos(*args):
         frameCentro_Circulo.pack()
         frameRadio_Circulo.pack()
     
+    frameErrores.pack()
     frameBotones.pack()
 
 #Solo limpia la gráfica, no los campos de entrada
@@ -181,6 +185,8 @@ def limpiar():
     longInput_Triangulo.delete(0, 'end')
     centroInput_Circulo.delete(0, 'end')
     radioInput_Circulo.delete(0, 'end')
+    erroresWindow.config(state="normal")
+    erroresWindow.delete(0.0, tk.END) 
     
     limpiarCanvas()
     canvas.draw()
@@ -188,26 +194,63 @@ def limpiar():
 #Grafica todas las figuras ingresadas
 def graficarTodo():
     limpiarCanvas() #Esto evita multiples figuras del mismo tipo
-    canvas.draw()
-    if puntoInput_Cuadrado.get() != "": #Esta condición debe cambiarse por la del analizador
-        punto = eval(puntoInput_Cuadrado.get()) #Eval permite convertir un string a una tupla
-        longitud = float(longInput_Cuadrado.get())
-        figuras.cuadrado(ax, punto, longitud)
-    if puntoInput_Rectangulo.get() != "":
-        punto = eval(puntoInput_Rectangulo.get())
-        ancho = float(longInput_Rectangulo.get())
-        largo = float(largoInput_Rectangulo.get())
-        figuras.rectangulo(ax, punto, ancho, largo)
-    if puntoInput_Triangulo.get() != "":
-        punto = eval(puntoInput_Triangulo.get())
-        longitud = float(longInput_Triangulo.get())
-        figuras.triangulo(ax, punto, longitud)
-    if centroInput_Circulo.get() != "":
-        centro = eval(centroInput_Circulo.get())
-        radio = float(radioInput_Circulo.get())
-        figuras.circulo(ax, centro, radio)
+    erroresWindow.config(state="normal") # Se habilita para poder escribir en el widget
+    erroresWindow.delete(0.0, tk.END) # Se limpia el widget
+    
+    # Evaluar Cuadrado
+    if(puntoInput_Cuadrado.get() != "" and longInput_Cuadrado.get() != ""):
         
-    canvas.draw()        
+        if parser.analizador([puntoInput_Cuadrado.get(), longInput_Cuadrado.get()], 1):
+           punto = eval(puntoInput_Cuadrado.get()) #Eval permite convertir un string a una tupla
+           longitud = float(longInput_Cuadrado.get())
+           figuras.cuadrado(ax, punto, longitud)
+        else:
+            mensajes_errores = parser.obtener_mensajes_errores_clave(parser.diccionario_errores, 1)
+            erroresWindow.insert(tk.END, "\n > Cuadrado <\n")
+            erroresWindow.insert(tk.END, mensajes_errores) # Se insertan los mensajes de error en el widget
+            parser.diccionario_errores[1].clear() # Se limpian los mensajes de error
+
+    # Evaluar Rectángulo
+    if puntoInput_Rectangulo.get() != "" and longInput_Rectangulo.get() != "" and largoInput_Rectangulo.get() != "":
+
+        if parser.analizador([puntoInput_Rectangulo.get(), longInput_Rectangulo.get(), largoInput_Rectangulo.get()], 2):
+            punto = eval(puntoInput_Rectangulo.get())
+            ancho = float(longInput_Rectangulo.get())
+            largo = float(largoInput_Rectangulo.get())
+            figuras.rectangulo(ax, punto, ancho, largo)
+        else:
+            mensajes_errores = parser.obtener_mensajes_errores_clave(parser.diccionario_errores, 2)
+            erroresWindow.insert(tk.END, "\n > Rectángulo <\n")
+            erroresWindow.insert(tk.END, mensajes_errores)
+            parser.diccionario_errores[2].clear()
+    
+    # Evaluar Triángulo
+    if puntoInput_Triangulo.get() != "" and longInput_Triangulo.get() != "":
+        if parser.analizador([puntoInput_Triangulo.get(), longInput_Triangulo.get()], 3):
+            punto = eval(puntoInput_Triangulo.get())
+            longitud = float(longInput_Triangulo.get())
+            figuras.triangulo(ax, punto, longitud)
+        else:
+            mensajes_errores = parser.obtener_mensajes_errores_clave(parser.diccionario_errores, 3)
+            erroresWindow.insert(tk.END, "\n > Triángulo <\n")
+            erroresWindow.insert(tk.END, mensajes_errores)
+            parser.diccionario_errores[3].clear()
+    
+    # Evaluar Círculo
+    if centroInput_Circulo.get() != "" and radioInput_Circulo.get() != "":
+        if parser.analizador([centroInput_Circulo.get(), radioInput_Circulo.get()], 4):
+            centro = eval(centroInput_Circulo.get())
+            radio = float(radioInput_Circulo.get())
+            figuras.circulo(ax, centro, radio)
+        else:
+            mensajes_errores = parser.obtener_mensajes_errores_clave(parser.diccionario_errores, 4)
+            erroresWindow.insert(tk.END, "\n > Círculo <\n")
+            erroresWindow.insert(tk.END, mensajes_errores)
+            parser.diccionario_errores[4].clear()
+
+    erroresWindow.config(state="disabled") # Se deshabilita para evitar que se pueda escribir en el widget
+    
+    canvas.draw()   
 
 #Función para eliminar la figura seleccionada y sus campos de entrada
 def eliminar():
@@ -243,6 +286,14 @@ eliminar_button = tk.Button(frameBotones, text="Eliminar figura", command=elimin
 eliminar_button.pack(side='left', padx=50, pady=10)
 graficar_button = tk.Button(frameBotones, text="Graficar", command=graficarTodo, font=labelFont)
 graficar_button.pack(side='left', padx=50, pady=10)
+
+#Sección para los errores
+frameErrores = tk.Frame(root)
+frameErrores.pack(pady=10)  # Espacio vertical para separar los Frames
+erroresLabel = tk.Label(frameErrores, text="Errores:", font=labelFont)
+erroresLabel.pack(side='left', padx=10, pady=10)
+erroresWindow = tk.Text(frameErrores, width=50, height=5, font=errorFont, wrap='word', state='disabled')
+erroresWindow.pack(side='left', padx=10, pady=10)
 
 mostrar_campos() #Se llama en cada inicio de la aplicación para evitar que no se ejecuten los cambios
 root.protocol("WM_DELETE_WINDOW", cerrar) #No se usan los paréntesis para que no se ejecute la función al iniciar la aplicación
