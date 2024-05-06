@@ -21,6 +21,8 @@ def circulo(ax, punto, radio):
 
     # Añadir el círculo al eje
     ax.add_artist(circulo)
+    ax.relim()  # Recalcular límites basándose en las figuras actuales
+    ax.autoscale_view()  # Ajustar la escala para asegurar que todo sea visible
 
 def triangulo(ax, punto, longitud):
     # Obtener coordenadas x, y del punto donde partirá el triángulo

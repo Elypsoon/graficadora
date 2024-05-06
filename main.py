@@ -165,6 +165,7 @@ def limpiarCanvas():
     ax.clear()
     ax.set_xlabel("Eje X")
     ax.set_ylabel("Eje Y")
+    ax.set_aspect('equal')  # Asegurar que la relación de aspecto sea 1:1
     ax.axhline(y=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
     ax.axvline(x=0, color='black', linestyle='-', linewidth=1, alpha=0.8)
     ax.grid(True)
