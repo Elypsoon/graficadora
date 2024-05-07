@@ -20,12 +20,12 @@ root.title("Graficadora")
 root.config(bg="white")
 
 
-labelFont = tkFont.Font(family="Terminal", size=16, weight="normal")
-inputFont = tkFont.Font(family="Terminal", size=16)
-errorFont = tkFont.Font(family="System", size=12)
+labelFont = tkFont.Font(family="Terminal", size=20, weight="normal")
+inputFont = tkFont.Font(family="Terminal", size=20)
+errorFont = tkFont.Font(family="System", size=16)
 
 # Crea una figura vacía inicial, ax es el contenedor de los elementos gráficos
-fig, ax = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(10, 10))
 
 # Añadir etiquetas a los ejes
 ax.set_xlabel("Eje X")
@@ -78,7 +78,7 @@ frameAncho_Cuadrado = tk.Frame(frameBase)
 frameAncho_Cuadrado.pack(pady=10)  # Espacio vertical para separar los Frames
 frameAncho_Cuadrado.config(background="lightgreen")
 longLabel_Cuadrado = tk.Label(frameAncho_Cuadrado, text="Longitud:", font=labelFont, background="lightgreen")
-longLabel_Cuadrado.pack(side='left', padx=62, pady=10)
+longLabel_Cuadrado.pack(side='left', padx=72, pady=10)
 longInput_Cuadrado = tk.Entry(frameAncho_Cuadrado, width=30, font=inputFont)
 longInput_Cuadrado.pack(side='left', padx=10, pady=10)
 
@@ -96,7 +96,7 @@ frameAncho_Rectangulo = tk.Frame(frameBase)
 frameAncho_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
 frameAncho_Rectangulo.config(background="lightgreen")
 longLabel_Rectangulo = tk.Label(frameAncho_Rectangulo, text="Ancho:", font=labelFont, background="lightgreen")
-longLabel_Rectangulo.pack(side='left', padx=80, pady=10)
+longLabel_Rectangulo.pack(side='left', padx=98, pady=10)
 longInput_Rectangulo = tk.Entry(frameAncho_Rectangulo, width=30, font=inputFont)
 longInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
@@ -105,7 +105,7 @@ frameLargo_Rectangulo = tk.Frame(frameBase)
 frameLargo_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
 frameLargo_Rectangulo.config(background="lightgreen")
 largoLabel_Rectangulo = tk.Label(frameLargo_Rectangulo, text="Largo:", font=labelFont, background="lightgreen")
-largoLabel_Rectangulo.pack(side='left', padx=80, pady=10)
+largoLabel_Rectangulo.pack(side='left', padx=98, pady=10)
 largoInput_Rectangulo = tk.Entry(frameLargo_Rectangulo, width=30, font=inputFont)
 largoInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
@@ -120,10 +120,10 @@ puntoInput_Triangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para la longitud del triángulo
 frameLong_Triangulo = tk.Frame(frameBase)
-frameLargo_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameLong_Triangulo.pack(pady=10)  # Espacio vertical para separar los Frames
 frameLong_Triangulo.config(background="lightgreen")
 longLabel_Triangulo = tk.Label(frameLong_Triangulo, text="Lado:", font=labelFont, background="lightgreen")
-longLabel_Triangulo.pack(side='left', padx=88, pady=10)
+longLabel_Triangulo.pack(side='left', padx=105, pady=10)
 longInput_Triangulo = tk.Entry(frameLong_Triangulo, width=30, font=inputFont)
 longInput_Triangulo.pack(side='left', padx=10, pady=10)
 
@@ -141,7 +141,7 @@ frameRadio_Circulo = tk.Frame(frameBase)
 frameRadio_Circulo.pack(pady=10)  # Espacio vertical para separar los Frames
 frameRadio_Circulo.config(background="lightgreen")
 radioLabel_Circulo = tk.Label(frameRadio_Circulo, text="Radio:", font=labelFont, background="lightgreen")
-radioLabel_Circulo.pack(side='left', padx=15, pady=10)
+radioLabel_Circulo.pack(side='left', padx=18, pady=10)
 radioInput_Circulo = tk.Entry(frameRadio_Circulo, width=30, font=inputFont)
 radioInput_Circulo.pack(side='left', padx=10, pady=10)
 
