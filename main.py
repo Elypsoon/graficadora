@@ -40,12 +40,6 @@ ax.grid(True)
 
 # Crear lienzo para Matplotlib
 canvas = FigureCanvasTkAgg(fig, master=root)
-
-# figuras.cuadrado(ax, (2, 2), 5)
-# figuras.circulo(ax, (10, 10), 3)
-# figuras.triangulo(ax, (3, 10), 5)
-# figuras.rectangulo(ax, (10, 3), 4, 6)
-
 canvas.draw()
 
 # Inserta el lienzo en la ventana
@@ -75,7 +69,7 @@ puntoInput_Cuadrado.pack(side='left', padx=10, pady=10)
 
 #Inputs para el tamaño del cuadrado
 frameAncho_Cuadrado = tk.Frame(frameBase)
-frameAncho_Cuadrado.pack(pady=10)  # Espacio vertical para separar los Frames
+frameAncho_Cuadrado.pack(pady=10)
 frameAncho_Cuadrado.config(background="lightgreen")
 longLabel_Cuadrado = tk.Label(frameAncho_Cuadrado, text="Longitud:", font=labelFont, background="lightgreen")
 longLabel_Cuadrado.pack(side='left', padx=72, pady=10)
@@ -84,16 +78,16 @@ longInput_Cuadrado.pack(side='left', padx=10, pady=10)
 
 #Inputs para el punto inicial del rectángulo
 framePunto_Rectangulo = tk.Frame(frameBase)
-framePunto_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+framePunto_Rectangulo.pack(pady=10)
 framePunto_Rectangulo.config(background="lightgreen")
-puntoLabel_Rectangulo = tk.Label(framePunto_Rectangulo, text="Punto de partida:", font=labelFont, background="lightgreen")
+puntoLabel_Rectangulo = tk.Label(framePunto_Rectangulo, text="Punto de Partida:", font=labelFont, background="lightgreen")
 puntoLabel_Rectangulo.pack(side='left', padx=10, pady=10)
 puntoInput_Rectangulo = tk.Entry(framePunto_Rectangulo, width=30, font=inputFont)
 puntoInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para el ancho del rectángulo
 frameAncho_Rectangulo = tk.Frame(frameBase)
-frameAncho_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameAncho_Rectangulo.pack(pady=10)
 frameAncho_Rectangulo.config(background="lightgreen")
 longLabel_Rectangulo = tk.Label(frameAncho_Rectangulo, text="Ancho:", font=labelFont, background="lightgreen")
 longLabel_Rectangulo.pack(side='left', padx=98, pady=10)
@@ -102,7 +96,7 @@ longInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para el largo del rectángulo
 frameLargo_Rectangulo = tk.Frame(frameBase)
-frameLargo_Rectangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameLargo_Rectangulo.pack(pady=10)
 frameLargo_Rectangulo.config(background="lightgreen")
 largoLabel_Rectangulo = tk.Label(frameLargo_Rectangulo, text="Largo:", font=labelFont, background="lightgreen")
 largoLabel_Rectangulo.pack(side='left', padx=98, pady=10)
@@ -111,16 +105,16 @@ largoInput_Rectangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para el punto inicial del triángulo
 framePunto_Triangulo = tk.Frame(frameBase)
-framePunto_Triangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+framePunto_Triangulo.pack(pady=10)
 framePunto_Triangulo.config(background="lightgreen")
-puntoLabel_Triangulo = tk.Label(framePunto_Triangulo, text="Punto de partida:", font=labelFont, background="lightgreen")
+puntoLabel_Triangulo = tk.Label(framePunto_Triangulo, text="Punto de Partida:", font=labelFont, background="lightgreen")
 puntoLabel_Triangulo.pack(side='left', padx=10, pady=10)
 puntoInput_Triangulo = tk.Entry(framePunto_Triangulo, width=30, font=inputFont)
 puntoInput_Triangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para la longitud del triángulo
 frameLong_Triangulo = tk.Frame(frameBase)
-frameLong_Triangulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameLong_Triangulo.pack(pady=10)
 frameLong_Triangulo.config(background="lightgreen")
 longLabel_Triangulo = tk.Label(frameLong_Triangulo, text="Lado:", font=labelFont, background="lightgreen")
 longLabel_Triangulo.pack(side='left', padx=105, pady=10)
@@ -129,7 +123,7 @@ longInput_Triangulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para el punto central del círculo
 frameCentro_Circulo = tk.Frame(frameBase)
-frameCentro_Circulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameCentro_Circulo.pack(pady=10)
 frameCentro_Circulo.config(background="lightgreen")
 centroLabel_Circulo = tk.Label(frameCentro_Circulo, text="Centro:", font=labelFont, background="lightgreen")
 centroLabel_Circulo.pack(side='left', padx=10, pady=10)
@@ -138,7 +132,7 @@ centroInput_Circulo.pack(side='left', padx=10, pady=10)
 
 #Inputs para la longitud del triángulo
 frameRadio_Circulo = tk.Frame(frameBase)
-frameRadio_Circulo.pack(pady=10)  # Espacio vertical para separar los Frames
+frameRadio_Circulo.pack(pady=10)
 frameRadio_Circulo.config(background="lightgreen")
 radioLabel_Circulo = tk.Label(frameRadio_Circulo, text="Radio:", font=labelFont, background="lightgreen")
 radioLabel_Circulo.pack(side='left', padx=18, pady=10)
@@ -317,7 +311,7 @@ graficar_button.pack(side='left', padx=50, pady=10)
 
 #Sección para los errores
 frameErrores = tk.Frame(frameBase)
-frameErrores.pack(pady=10)  # Espacio vertical para separar los Frames
+frameErrores.pack(pady=10)
 frameErrores.config(background="lightgreen")
 erroresLabel = tk.Label(frameErrores, text="Errores:", font=labelFont, background="lightgreen")
 erroresLabel.pack(side='left', padx=10, pady=10)
@@ -326,10 +320,10 @@ erroresWindow.pack(side='left', padx=10, pady=10)
 
 def mostrar_errores(errores_texto):
     erroresWindow.tag_configure("center", justify='center')  # Configurar centrado
-    erroresWindow.tag_configure("big", font=("Terminal", 14))  # Configurar tamaño de la fuente
+    erroresWindow.tag_configure("big", font=("Terminal", 18))  # Configurar tamaño de la fuente
     erroresWindow.insert(tk.END, errores_texto, "center big")  # Insertar texto centrado y con tamaño de letra grande
 
-mostrar_campos() #Se llama en cada inicio de la aplicación para evitar que no se ejecuten los cambios
+mostrar_campos() #Se llama en cada inicio de la aplicación para evitar que se muestren campos no deseados
 root.protocol("WM_DELETE_WINDOW", cerrar) #No se usan los paréntesis para que no se ejecute la función al iniciar la aplicación
-tk.mainloop() # Ejecutar el bucle de eventos de Tkinter
+tk.mainloop() # Mantiene la interfaz en ejecución
 
